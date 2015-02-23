@@ -1,6 +1,7 @@
 package com.graphaware.meetup;
 
-import com.graphaware.meetup.engine.DummyEngine;
+import com.graphaware.meetup.engine.RewardByLocation;
+import com.graphaware.meetup.engine.SkillEngine;
 import com.graphaware.reco.generic.engine.RecommendationEngine;
 import com.graphaware.reco.generic.log.Logger;
 import com.graphaware.reco.generic.post.PostProcessor;
@@ -20,13 +21,15 @@ public class MyRecommendationEngine extends Neo4jTopLevelDelegatingEngine {
     @Override
     protected List<RecommendationEngine<Node, Node>> engines() {
         return Arrays.<RecommendationEngine<Node, Node>>asList(
-                new DummyEngine() //todo remove this engine and add your own
+                new SkillEngine() //DummyEngine() //todo remove this engine and add your own
         );
     }
 
     @Override
     protected List<PostProcessor<Node, Node>> postProcessors() {
-        return Collections.emptyList(); //todo add your own post processors
+        return Arrays.<PostProcessor<Node,Node>> asList(
+                new RewardByLocation()
+        ); //todo add your own post processors
     }
 
     @Override
